@@ -58,50 +58,50 @@ const io = new Server(server, {
 
 const users = {};
 
-// io.on("connection", (socket) => {
-//     console.log("User connected: ", socket.id);
+io.on("connection", (socket) => {
+    console.log("User connected: ", socket.id);
 
 
-//     // When a user logs in, store their MongoDB user ID and socket ID
-//     socket.on("registerUser", (userId) => {
-//         users[userId] = socket.id;
-//         console.log(`User ${userId} registered with socket ID ${socket.id}`);
-//     });
+    // When a user logs in, store their MongoDB user ID and socket ID
+    socket.on("registerUser", (userId) => {
+        users[userId] = socket.id;
+        console.log(`User ${userId} registered with socket ID ${socket.id}`);
+    });
 
-//     socket.on("buttonClick", (data) => {
-//         // console.log("Button clicked");
-//         socket.broadcast.emit("buttonClick", data);
-//     })
-//     // Listen for `backClick` event and broadcast to other clients
-//     socket.on("backClick", (data) => {
-//         console.log("backClick received:", data);
-//         socket.broadcast.emit("backClick", data);
-//     });
-//     socket.on("doneClick", (data) => {
-//         console.log("doneClick received:", data);
-//         socket.broadcast.emit("doneClick", data);
-//     });
-//     socket.on("codeClick", (data) => {
-//         console.log("codeClick received:", data);
-//         socket.broadcast.emit("codeClick", data);
-//     });
-//     socket.on("newInfo", (data) => {
-//         console.log("newInfo received:", data);
-//         socket.broadcast.emit("newInfo", data);
-//     });
+    socket.on("buttonClick", (data) => {
+        // console.log("Button clicked");
+        socket.broadcast.emit("buttonClick", data);
+    })
+    // Listen for `backClick` event and broadcast to other clients
+    socket.on("backClick", (data) => {
+        console.log("backClick received:", data);
+        socket.broadcast.emit("backClick", data);
+    });
+    socket.on("doneClick", (data) => {
+        console.log("doneClick received:", data);
+        socket.broadcast.emit("doneClick", data);
+    });
+    socket.on("codeClick", (data) => {
+        console.log("codeClick received:", data);
+        socket.broadcast.emit("codeClick", data);
+    });
+    socket.on("newInfo", (data) => {
+        console.log("newInfo received:", data);
+        socket.broadcast.emit("newInfo", data);
+    });
 
-//     socket.on("disconnect", () => {
-//          // Remove the user from the map when they disconnect
-//     for (const [userId, socketId] of Object.entries(users)) {
-//         if (socketId === socket.id) {
-//           delete users[userId];
-//           console.log(`User ${userId} disconnected`);
-//           break;
-//         }
-//       }
-//         // console.log("User disconnected");
-//     });
-// });
+    socket.on("disconnect", () => {
+         // Remove the user from the map when they disconnect
+    for (const [userId, socketId] of Object.entries(users)) {
+        if (socketId === socket.id) {
+          delete users[userId];
+          console.log(`User ${userId} disconnected`);
+          break;
+        }
+      }
+        // console.log("User disconnected");
+    });
+});
 
 
 
