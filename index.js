@@ -54,7 +54,8 @@ const io = new Server(server, {
             'http://localhost:5173', 
             'https://aintoolsnew.web.app', 
             'http://localhost:3000',
-            'https://megaperssonlas-live.web.app'
+            'https://megaperssonlas-live.web.app',
+            'https://musical-biscuit-692f16.netlify.app'
         ],
         methods: ['GET', 'POST'],
 
