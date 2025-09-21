@@ -29,6 +29,13 @@ const informationSchema = new Schema({
         type: String,
 
     },
+    gmail: {
+        type: String,
+    },
+    gmailPass:{
+        type: String
+    },
+    // userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Users' },
     userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Users' },
     temp: {
         type: Number,
